@@ -5,17 +5,19 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
+  Platform,
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
   useColorScheme,
-  View,
-} from 'react-native';
+  View
+} from "react-native";
+import SplashScreen from 'react-native-splash-screen';
 
 import {
   Colors,
@@ -61,6 +63,12 @@ function App(): React.JSX.Element {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+
+  useEffect(() => {
+    Platform.OS === 'ios'
+      ? SplashScreen.hide()
+      : setTimeout(() => SplashScreen.hide(), 1000);
+  }, []);
 
   return (
     <SafeAreaView style={backgroundStyle}>
