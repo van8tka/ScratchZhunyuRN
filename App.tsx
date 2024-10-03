@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {Platform, View, Image, StyleSheet} from 'react-native';
+import React, {useEffect} from 'react';
+import {Platform, View, StyleSheet, ImageBackground} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {
   Gesture,
   GestureDetector,
@@ -58,21 +57,20 @@ function App(): React.JSX.Element {
     audio.stop();
   }
 
-  const handleGesture = Gesture.Tap()
+  const handleGesture = Gesture.Pan()
     .onTouchesMove(onTouchesMoveGestureHandler)
     .onEnd(onEndGestureHandler);
 
   return (
     <GestureHandlerRootView style={styles.gesture}>
-      <View style={styles.container}>
+      <ImageBackground
+        source={require('./assets/images/zhunya.png')}
+        style={styles.image}
+        resizeMode="cover">
         <GestureDetector gesture={handleGesture}>
-          <Image
-            source={require('./assets/images/zhunya.png')}
-            style={styles.image}
-            resizeMode="cover"
-          />
+          <View style={styles.shadow} />
         </GestureDetector>
-      </View>
+      </ImageBackground>
     </GestureHandlerRootView>
   );
 }
@@ -81,15 +79,16 @@ const styles = StyleSheet.create({
   gesture: {
     flex: 1,
   },
-  container: {
-    flexDirection: 'row',
-    height: '100%',
-    width: '100%',
-    backgroundColor: Colors.gray,
-  },
   image: {
     height: '100%',
     width: '100%',
+  },
+  shadow: {
+    marginTop: '48%',
+    marginLeft: '14%',
+    transform: [{rotate: '-18deg'}],
+    height: '62%',
+    width: '65%',
   },
 });
 
